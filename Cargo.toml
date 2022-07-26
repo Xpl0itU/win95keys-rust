@@ -1,0 +1,8 @@
+[package]
+
+name = "win95keys"
+version = "1.0.0"
+authors = [ "Xpl0itU" ]
+
+[dependencies]
+rand = "0.8.5"

@@ -1,12 +1,15 @@
 extern crate rand;
 
-use rand::distributions::{Distribution, Uniform};
+use rand::{
+    distributions::{Distribution, Uniform},
+    Rng,
+};
 
 fn sum(mut number: u32) -> u32 {
     let mut sum_all_nums = 0;
     while number > 0 {
         sum_all_nums += number % 10;
-        number = number / 10;
+        number /= 10;
     }
     return sum_all_nums;
 }
@@ -37,20 +40,13 @@ fn retail() -> String {
 
 fn oem() -> String {
     let mut rng = rand::thread_rng();
-    let first_part_die = Uniform::from(1..366);
-    let second_part_die = Uniform::from(0..9);
     let third_part_die = Uniform::from(0..999999);
-    let last_part_die = Uniform::from(0..99999);
     let second_part_array: [u32; 9] = [95, 96, 97, 98, 99, 00, 01, 02, 03];
-    let first_part: u32;
-    let second_part: u32;
+    let first_part: u32 = rng.gen_range(1..366);
+    let second_part_indice: usize = rng.gen_range(0..8);
+    let second_part: u32 = second_part_array[second_part_indice];
     let mut third_part: u32;
-    let last_part: u32 = last_part_die.sample(&mut rng);
-
-    first_part = first_part_die.sample(&mut rng);
-
-    let second_part_indice: usize = second_part_die.sample(&mut rng);
-    second_part = second_part_array[second_part_indice];
+    let last_part: u32 = rng.gen_range(0..99999);
 
     loop {
         third_part = third_part_die.sample(&mut rng);

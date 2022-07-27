@@ -6,3 +6,7 @@ authors = [ "Xpl0itU" ]
 
 [dependencies]
 rand = "0.8.5"
+
+[profile.release]
+strip = "debuginfo"
+lto = true

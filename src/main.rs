@@ -19,22 +19,17 @@ fn retail() -> String {
     let first_part_die = Uniform::from(0..998);
     let second_part_die = Uniform::from(0..9999999);
     let invalid_nums: [u32; 6] = [333, 444, 555, 666, 777, 888];
-    let mut first_part: u32;
-    let mut second_part: u32;
+    let mut first_part: u32 = first_part_die.sample(&mut rng);
+    let mut second_part: u32 = second_part_die.sample(&mut rng);
 
-    loop {
+    while invalid_nums.contains(&first_part) {
         first_part = first_part_die.sample(&mut rng);
-        if !invalid_nums.contains(&first_part) {
-            break;
-        }
     }
 
-    loop {
+    while (sum(second_part) % 7) != 0 {
         second_part = second_part_die.sample(&mut rng);
-        if (sum(second_part) % 7) == 0 {
-            break;
-        }
     }
+
     return format!("{:03}-{:07}", first_part, second_part);
 }
 
@@ -43,7 +38,7 @@ fn office97() -> String {
     let first_part_die = Uniform::from(1..9991);
     let second_part_die = Uniform::from(0..9999999);
     let mut first_part: u32;
-    let mut second_part: u32;
+    let mut second_part: u32 = second_part_die.sample(&mut rng);
 
     loop {
         first_part = first_part_die.sample(&mut rng);
@@ -52,12 +47,10 @@ fn office97() -> String {
         }
     }
 
-    loop {
+    while (sum(second_part) % 7) != 0 {
         second_part = second_part_die.sample(&mut rng);
-        if (sum(second_part) % 7) == 0 {
-            break;
-        }
     }
+
     return format!("{:04}-{:07}", first_part, second_part);
 }
 
@@ -68,14 +61,11 @@ fn oem() -> String {
     let first_part: u32 = rng.gen_range(1..366);
     let second_part_indice: usize = rng.gen_range(0..8);
     let second_part: u32 = second_part_array[second_part_indice];
-    let mut third_part: u32;
+    let mut third_part: u32 = third_part_die.sample(&mut rng);
     let last_part: u32 = rng.gen_range(0..99999);
 
-    loop {
+    while (sum(third_part) % 7) != 0 {
         third_part = third_part_die.sample(&mut rng);
-        if (sum(third_part) % 7) == 0 {
-            break;
-        }
     }
 
     return format!(

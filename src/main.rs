@@ -38,6 +38,29 @@ fn retail() -> String {
     return format!("{:03}-{:07}", first_part, second_part);
 }
 
+fn office97() -> String {
+    let mut rng = rand::thread_rng();
+    let first_part_die = Uniform::from(1..9991);
+    let second_part_die = Uniform::from(0..9999999);
+    let mut first_part: u32;
+    let mut second_part: u32;
+
+    loop {
+        first_part = first_part_die.sample(&mut rng);
+        if first_part % 10 == (((first_part % 100) / 10) + 1) && first_part < 9991 {
+            break;
+        }
+    }
+
+    loop {
+        second_part = second_part_die.sample(&mut rng);
+        if (sum(second_part) % 7) == 0 {
+            break;
+        }
+    }
+    return format!("{:04}-{:07}", first_part, second_part);
+}
+
 fn oem() -> String {
     let mut rng = rand::thread_rng();
     let third_part_die = Uniform::from(0..999999);
@@ -63,5 +86,6 @@ fn oem() -> String {
 
 fn main() {
     println!("Retail key: {}", retail());
+    println!("Office 97 key: {}", office97());
     println!("OEM key: {}", oem());
 }
